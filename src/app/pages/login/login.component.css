@@ -1,373 +1,240 @@
-.card {
-  --p: 32px;
-  --h-form: auto;
-  --w-form: 380px;
-  --input-px: 0.75rem;
-  --input-py: 0.65rem;
-  --submit-h: 38px;
-  --blind-w: 64px;
-  --space-y: 0.5rem;
-  width: var(--w-form);
-  height: var(--h-form);
-  max-width: 100%;
-  border-radius: 16px;
-  background: rgb(189, 184, 184);
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  flex-direction: column;
-  overflow-y: auto;
-  padding: var(--p);
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
+/* Fondo a toda la página - blanco con acentos rojos */
+html, body {
+  height: 100%;
+  margin: 0;
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(255, 82, 82, 0.06), transparent 10%),
+              radial-gradient(900px 400px at 90% 90%, rgba(198, 40, 40, 0.04), transparent 10%),
+              linear-gradient(180deg, #ffffff 0%, #f5f5f7 100%);
+  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
-  -webkit-user-select: none;
-  user-select: none;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
-  /* movimiento para el formulario */
-  margin: 150px 750px;
-  max-width: 400px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  -moz-osx-font-smoothing: grayscale;
+  font-family: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #222;
 }
 
-.avatar {
-  --sz-avatar: 166px;
-  order: 0;
-  width: var(--sz-avatar);
-  min-width: var(--sz-avatar);
-  max-width: var(--sz-avatar);
-  height: var(--sz-avatar);
-  min-height: var(--sz-avatar);
-  max-height: var(--sz-avatar);
-  border: 1px solid #707070;
-  border-radius: 9999px;
-  overflow: hidden;
-  cursor: pointer;
-  z-index: 2;
-  perspective: 80px;
-  position: relative;
-  margin: 0;
+/* Centrar y bajar un poco el formulario */
+.wrapper {
+  min-height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  --sz-svg: calc(var(--sz-avatar) - 10px);
+  align-items: center;      
+  justify-content: center;  
+  padding-top: 4.5rem;        /* baja el formulario un poco */
+  background: transparent;
+  margin: 0;
+  animation: bgSubtle 10s linear infinite;
 }
 
-.avatar svg {
-  position: absolute;
-  transition:
-    transform 0.2s ease-in,
-    opacity 0.1s;
-  transform-origin: 50% 100%;
-  height: var(--sz-svg);
-  width: var(--sz-svg);
-  pointer-events: none;
+/* entrada del form: animación de aparición */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px) scale(.995); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-.avatar svg#monkey {
-  z-index: 1;
-}
-
-.avatar svg#monkey-hands {
-  z-index: 2;
-  transform-style: preserve-3d;
-  transform: translateY(calc(var(--sz-avatar) / 1.25)) rotateX(-21deg);
-}
-
-.avatar::before {
-  content: "";
-  border-radius: 45%;
-  width: calc(var(--sz-svg) / 3.889);
-  height: calc(var(--sz-svg) / 5.833);
-  border: 0;
-  border-bottom: calc(var(--sz-svg) * (4 / 100)) solid #3c302a;
-  bottom: 20%;
-
-  position: absolute;
-  transition: all 0.2s ease;
-  z-index: 3;
-}
-
-.blind-check:checked~.avatar::before {
-  width: calc(var(--sz-svg) * (9 / 100));
-  height: 0;
-  border-radius: 50%;
-  border-bottom: calc(var(--sz-svg) * (10 / 100)) solid #3c302a;
-}
-
-.avatar svg#monkey .monkey-eye-r,
-.avatar svg#monkey .monkey-eye-l {
-  animation: blink 10s 1s infinite;
-  transition: all 0.2s ease;
-}
-
-@keyframes blink {
-
-  0%,
-  2%,
-  4%,
-  26%,
-  28%,
-  71%,
-  73%,
-  100% {
-    ry: 4.5;
-    cy: 31.7;
-  }
-
-  1%,
-  3%,
-  27%,
-  72% {
-    ry: 0.5;
-    cy: 30;
-  }
-}
-
-.blind-check:checked~.avatar svg#monkey .monkey-eye-r,
-.blind-check:checked~.avatar svg#monkey .monkey-eye-l {
-  ry: 0.5;
-  cy: 30;
-}
-
-.blind-check:checked~.avatar svg#monkey-hands {
-  transform: translate3d(0, 0, 0) rotateX(0deg);
-}
-
-.avatar svg#monkey,
-.avatar::before,
-.avatar svg#monkey .monkey-eye-nose,
-.avatar svg#monkey .monkey-eye-r,
-.avatar svg#monkey .monkey-eye-l {
-  transition: all 0.2s ease;
-}
-
-.blind-check:checked~.form:focus-within~.avatar svg#monkey,
-.blind-check:checked~.form:focus-within~.avatar::before,
-.blind-check:checked~.form:focus-within~.avatar svg#monkey .monkey-eye-nose,
-.blind-check:checked~.form:focus-within~.avatar svg#monkey .monkey-eye-r,
-.blind-check:checked~.form:focus-within~.avatar svg#monkey .monkey-eye-l {
-  animation: none;
-}
-
-.form:focus-within~.avatar svg#monkey {
-  animation: slick 3s ease infinite 1s;
-  --center: rotateY(0deg);
-  --left: rotateY(-4deg);
-  --right: rotateY(4deg);
-}
-
-.form:focus-within~.avatar::before,
-.form:focus-within~.avatar svg#monkey .monkey-eye-nose,
-.blind-check:not(:checked)~.form:focus-within~.avatar svg#monkey .monkey-eye-r,
-.blind-check:not(:checked)~.form:focus-within~.avatar svg#monkey .monkey-eye-l {
-  ry: 3;
-  cy: 35;
-  animation: slick 3s ease infinite 1s;
-  --center: translateX(0);
-  --left: translateX(-0.5px);
-  --right: translateX(0.5px);
-}
-
-@keyframes slick {
-
-  0%,
-  100% {
-    transform: var(--center);
-  }
-
-  25% {
-    transform: var(--left);
-  }
-
-  75% {
-    transform: var(--right);
-  }
-}
-
-/* Estilos para el formulario */
+/* Card / formulario */
 .form {
-  order: 1;
-  position: relative;
+  width: 100%;
+  max-width: 420px;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  padding: 20px 0;
-  gap: 15px;
+  gap: 1rem;
+  padding: 2rem;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,250,250,0.95));
+  border: 1px solid rgba(220,20,20,0.08);
+  box-shadow: 0 10px 30px rgba(30,30,30,0.07), 0 2px 10px rgba(198,30,30,0.03);
+  position: relative;
+  box-sizing: border-box;
+  animation: fadeUp .5s ease both;
+  transform-origin: center;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.form:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px rgba(30,30,30,0.09);
 }
 
-/* Título del formulario */
+/* Título */
 .form .title {
-  width: 100%;
-  font-size: 24px;
-  font-weight: 600;
-  color: #333;
-  text-align: center;
-  margin-bottom: 25px;
-  padding-bottom: 15px;
-  border-bottom: 2px solid rgba(204, 0, 0, 0.2);
-}
-
-/* Labels del formulario */
-.form .email,
-.form .contraseña {
   display: block;
-  font-size: 14px;
-  font-weight: 600;
-  color: #555;
-  margin-bottom: 8px;
+  font-size: 1.5rem;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 4px;
+  text-align: center;
+  margin: 0 0 .125rem 0;
+  background: linear-gradient(90deg,#b71c1c,#e53935);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.4);
 }
 
-/* Container para password y forgot password */
-.form .frg_pss {
-  width: 100%;
+/* Input container: icon + input alineados y ordenados */
+.form .input-container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
-}
-
-/* Link de forgot password */
-.form .frg_pss a {
-  font-size: 13px;
-  color: #cc0000;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.form .frg_pss a:hover {
-  color: #ff0000;
-  text-decoration: underline;
-}
-
-/* Inputs del formulario */
-.form .input {
+  gap: 0.75rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 10px;
   background: #ffffff;
-  border: 1px solid #eb1919;
-  border-radius: 6px;
-  padding: 12px 0.4px;
-  font-size: 16px;
-  width: 100%;
-  color: #333;
-  transition: all 0.3s ease;
-  margin: 0;
+  border: 1px solid rgba(34,34,34,0.06);
+  transition: box-shadow .18s ease, border-color .18s ease, transform .12s ease;
+}
+.form .input-container:active,
+.form .input-container:focus-within {
+  transform: translateY(-1px);
+  border-color: rgba(198,30,30,0.28);
+  box-shadow: 0 6px 22px rgba(198,30,30,0.06);
 }
 
-.form .input:focus {
-  border-color: #cc0000;
-  box-shadow: 0 0 0 2px rgba(204, 0, 0, 0.1);
+/* SVG icon sizing and colour */
+.form .input-container svg {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  stroke: #9e9e9e;
+}
+.form .input-container svg g,
+.form .input-container svg path {
+  transition: stroke .15s ease, fill .15s ease;
+}
+
+/* Input fields: blanco con texto oscuro */
+.form .input-container .input,
+.form .input {
+  flex: 1 1 auto;
+  background: transparent;
+  border: none;
+  padding: 0.6rem 0;
+  color: #111;
+  font-size: 0.98rem;
+  line-height: 1;
   outline: none;
 }
 
-/* Botón de submit */
-.form .submit {
-  margin-top: 20px;
-  height: 45px;
-  width: 100%;
-  background-color: #cc0000;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+/* placeholder color */
+.form .input::placeholder,
+.form .input-container .input::placeholder {
+  color: #9a9a9a;
+  opacity: 1;
 }
 
-.form .submit:hover {
-  background-color: #ff0000;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(204, 0, 0, 0.15);
+/* focus state: resaltar en rojo */
+.form .input-container:focus-within svg,
+.form .input-container:focus-within svg g {
+  stroke: #e53935;
 }
 
-.form .submit:active {
-  transform: translateY(0);
-  box-shadow: none;
+/* labels uniformes (por si se añaden) */
+.form label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #666;
+  margin-bottom: 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
 }
 
-body,
-html {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  background: linear-gradient(to bottom, #ffcccc, #cccccc);
-}
-
-.blind-check:checked~.form .input[type="text"] {
-  -webkit-text-security: disc;
-}
-
-/* Modificar los estilos existentes del contenedor de password */
+/* Password container para posicionar botón show/hide */
 .password-container {
   position: relative;
   width: 100%;
   display: flex;
   align-items: center;
-
-
 }
 
+/* espacio a la derecha para el toggle */
 .password-container .input {
-  padding-right: 45px;
-  width: 100%;
+  padding-right: 3.8rem;
 }
 
-/* Modificar la lógica de mostrar/ocultar */
-.blind-check:not(:checked)~.form .blind_input .show {
-  display: inline-block;
-}
-
-.blind-check:not(:checked)~.form .blind_input .hide {
-  display: none;
-}
-
-.blind-check:checked~.form .blind_input .show {
-  display: none;
-}
-
-.blind-check:checked~.form .blind_input .hide {
-  display: inline-block;
-}
-
-/* Cambiar el tipo de input cuando se hace click */
-.blind-check:not(:checked)~.form .password-container .input {
-  -webkit-text-security: password;
-}
-
-.blind-check:checked~.form .password-container .input {
-  -webkit-text-security: none;
-}
-
-
+/* botón show/hide (dinámico) */
 .blind_input {
   position: absolute;
-  right: 10px;
+  right: 0.6rem;
   top: 50%;
   transform: translateY(-50%);
-  background-color: transparent;
-  padding: 5px 10px;
+  background: transparent;
+  border: none;
+  color: #b71c1c;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
   cursor: pointer;
-  z-index: 2;
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+  transition: color .12s ease, background .12s ease, transform .12s ease;
   user-select: none;
 }
-
-.blind_input .show,
-.blind_input .hide {
-  font-size: 12px;
-  color: #cc0000;
-  text-transform: uppercase;
-  font-weight: 600;
-  transition: all 0.3s ease;
+.blind_input:hover {
+  color: #fff;
+  background: rgba(198,30,30,0.85);
+  transform: translateY(-1px);
 }
 
-.blind_input:hover .show,
-.blind_input:hover .hide {
-  color: #ff0000;
+/* Submit button: animación de gradiente */
+.form .login-button {
+  width: 100%;
+  display: block;
+  margin-top: .25rem;
+}
+.form .login-button .input {
+  width: 100%;
+  cursor: pointer;
+  padding: 0.95rem;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(90deg,#d32f2f,#b71c1c 60%);
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  transition: transform .14s ease, box-shadow .14s ease, filter .14s ease;
+  box-shadow: 0 8px 18px rgba(183,28,28,0.14);
+  position: relative;
+  overflow: hidden;
+}
+.form .login-button .input::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(255,255,255,0.06), transparent 40%);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+.form .login-button .input:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.03);
+  box-shadow: 0 14px 30px rgba(183,28,28,0.18);
+}
+.form .login-button .input:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+
+/* pequeño detalle textural opcional */
+.form .texture {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background-image: linear-gradient(0deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 1px 5px;
+  mix-blend-mode: soft-light;
+  opacity: 0.04;
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+  .form { padding: 1.25rem; max-width: 92%; border-radius: 10px; }
+  .form .title { font-size: 1.15rem; letter-spacing: 3px; }
+  .password-container .input { padding-right: 3rem; }
+}
+
+/* sutil animación de fondo */
+@keyframes bgSubtle {
+  0% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(-4deg); }
+  100% { filter: hue-rotate(0deg); }
 }
