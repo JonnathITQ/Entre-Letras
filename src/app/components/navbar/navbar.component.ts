@@ -15,7 +15,8 @@ export class NavbarComponent {
     { label: 'Inicio', link: '/', icon: 'fas fa-home' },
     { label: 'Libros', link: '/libros', icon: 'fas fa-book' },
     { label: 'Mi Estante', link: '/estante', icon: 'fas fa-bookmark' },
-    { label: 'Temas', link: '/temas', icon: 'fas fa-tags' }
+    { label: 'Categorías', link: '/temas', icon: 'fas fa-tags' },
+    
   ];
 
   toggleMenu(): void {

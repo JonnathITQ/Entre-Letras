@@ -6,7 +6,7 @@
     justify-content: space-between;
     gap: 2rem;
     padding: 0.75rem 2rem;
-    background: linear-gradient(135deg, #8B0000 0%, #142a8b 100%);
+    background: linear-gradient(135deg, black 20%, #6A0F09 100%);
     backdrop-filter: blur(12px);
     color: #ffffff;
     box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
