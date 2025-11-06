@@ -16,7 +16,6 @@ export class NavbarComponent {
     { label: 'Libros', link: '/libros', icon: 'fas fa-book' },
     { label: 'Mi Estante', link: '/estante', icon: 'fas fa-bookmark' },
     { label: 'Categorías', link: '/temas', icon: 'fas fa-tags' },
-    
   ];
 
   toggleMenu(): void {
